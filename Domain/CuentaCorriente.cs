@@ -20,7 +20,7 @@ namespace Dsw2025Ej8.Domain
         {
             ValidarCuenta();
             ValidarMonto(monto);
-            decimal montoFinal = monto - (monto * _comision);
+            decimal montoFinal = monto - (monto * Comision);
             Saldo += montoFinal;
         }
 
@@ -35,7 +35,7 @@ namespace Dsw2025Ej8.Domain
                 if (Saldo < 0)
                 {
                    Estado= Estado.Suspendida;
-                   throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
+                   throw new SaldoInsuficiente($"Cuenta {Numero}: La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
                 }
             }
         }

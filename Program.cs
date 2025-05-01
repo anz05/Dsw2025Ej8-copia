@@ -6,11 +6,12 @@ namespace Dsw2025Ej8
     {
         static void Main(string[] args)
         {
-            CuentaBancaria[] cuentas;
+            decimal saldoInteres; 
+            CuentaBancaria[] cuentas = new CuentaBancaria[4];
             
             try
             {
-                var cuenta = new CajaDeAhorro("1234", 1000, new string[] { "Ana", "Laura" })
+                var cuenta = new CajaDeAhorro("1", 20000, new string[] { "Ana", "Laura" })
                 {
                     TasaDeInteres = 0.04m,
                 };
@@ -26,7 +27,7 @@ namespace Dsw2025Ej8
 
             try
             {
-                var cuenta = new CajaDeAhorro("1235", 5000, new string[] { "Maria", "Perez" })
+                var cuenta = new CajaDeAhorro("2", 5000, new string[] { "Maria", "Perez" })
                 {
                     TasaDeInteres = 0.04m,
                 };
@@ -42,13 +43,13 @@ namespace Dsw2025Ej8
 
             try
             {
-                var cuenta = new CuentaCorriente("1236", 10000, new string[] { "Juan", "Lopez" })
+                var cuenta = new CuentaCorriente("3", 10000, new string[] { "Juan", "Lopez" })
                 {
-                    Comision = 5890m,
+                    Comision = 0.4m,
                     LimiteDeDescubierto = 2000m,
                 };
                 cuenta.Depositar(-980m);
-                cuenta.Retirar(4000m);
+                cuenta.Retirar(-4000m);
                 cuentas[2] = cuenta;
 
             }
@@ -59,13 +60,13 @@ namespace Dsw2025Ej8
 
             try
             {
-                var cuenta = new CuentaCorriente("1237", 98333, new string[] { "Pedro", "Araoz" })
+                var cuenta = new CuentaCorriente("4", 3000, new string[] { "Pedro", "Araoz" })
                 {
-                    Comision = 5890m,
+                    Comision = 0.5m,
                     LimiteDeDescubierto = 2000m,
                 };
-                cuenta.Depositar(-980m);
-                cuenta.Retirar(4000m);
+                cuenta.Depositar(1000m);
+                cuenta.Retirar(4500m);
                 cuentas[3] = cuenta;
 
             }
@@ -73,13 +74,24 @@ namespace Dsw2025Ej8
             {
                 ControladorExcepciones.Handle(ex);
             }
-
+            Console.WriteLine("\n");
+            Console.WriteLine("***** RESUMEN CUENTAS SIN EXCEPCIONES *****");
             foreach (var cuenta in cuentas)
             {
-                var myClaseAnonima = new { Numero = cuenta.Numero, Tipo = cuenta.GetType().Name, Saldo = cuenta.Saldo };
-                Console.WriteLine(myClaseAnonima);
+                if (cuenta != null)
+                {
+                    Console.WriteLine("\n");
+
+                    var Mostrar = new { cuenta.Numero, Tipo = cuenta.GetType().Name, cuenta.Saldo };
+                    Console.WriteLine(Mostrar);
+
+                    if (cuenta is CajaDeAhorro cuentaDeAhorro)
+                    {
+                        saldoInteres = cuentaDeAhorro.AplicarInteres();
+                        Console.WriteLine($"El saldo de cuenta {cuentaDeAhorro.Numero} aplicando el interes es: {saldoInteres}");
+                    }
+                } 
             }
-            
         }
     }
 }

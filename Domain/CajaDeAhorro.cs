@@ -14,8 +14,6 @@ class CajaDeAhorro : CuentaBancaria
     {
 
     }
-
-
     public override void Depositar(decimal monto)
     {
         ValidarCuenta();
@@ -30,16 +28,17 @@ class CajaDeAhorro : CuentaBancaria
         if (Saldo < monto)
         {
             Estado = Estado.Suspendida;
-            throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
+            throw new SaldoInsuficiente($"Cuenta {Numero}:La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
         }
         
         Saldo -= monto;
     }
 
-    public void AplicarInteres()
+    public decimal AplicarInteres()
     {
         ValidarCuenta();
         Saldo += Saldo * TasaDeInteres;
+        return Saldo;
     }
 
 }
