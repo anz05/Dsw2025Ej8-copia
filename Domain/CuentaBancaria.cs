@@ -4,8 +4,8 @@ public class CuentaBancaria
 {
     //private TipoCuenta _tipo;
     public string Numero { get; }
-    protected decimal Saldo { get;  set; }
-    public Estado Estado { get; set; }
+    public decimal Saldo { get; protected set; }
+    public Estado Estado { get; protected set; }
     public decimal Comision { get; }
     //private decimal _limiteDeDescubierto;
     public string[] Titulares { get; }
@@ -27,11 +27,15 @@ public class CuentaBancaria
     #endregion
     public virtual void Depositar(decimal monto)
     {
-
+        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
+        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
     }
 
     public virtual void Retirar(decimal monto)
     {
+        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
+        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
+        if (Saldo < monto) throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
 
     }
 

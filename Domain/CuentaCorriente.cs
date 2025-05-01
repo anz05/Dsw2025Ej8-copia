@@ -15,11 +15,7 @@ namespace Dsw2025Ej8.Domain
         {
             _comision = comision;
         }
-        public decimal LimiteDeDescubierto
-        {
-            get => _limiteDeDescubierto;
-            set => _limiteDeDescubierto = value;
-        }
+        public decimal LimiteDeDescubierto { get; init; }
 
         public override void Depositar(decimal monto)
         {

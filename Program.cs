@@ -6,28 +6,40 @@ namespace Dsw2025Ej8
     {
         static void Main(string[] args)
         {
-            string[] lista = ["Juan", "Carlos", "Perez"];
-            CajaDeAhorro cuenta;
-            cuenta = new CajaDeAhorro("1", 1000m, lista);
-            cuenta.TasaDeInteres = 0.05m;
-            cuenta.Depositar(1000.00m);
-            cuenta.Retirar(120m);
-
-            var cuenta1 = new CuentaBancaria("", 1000, new string[] { "Ana", "Laura" })
+            try
             {
-                TasaDeInteres = 0.04m,
-            };
+                var cuenta1 = new CajaDeAhorro("1234", 1000, new string[] { "Ana", "Laura" })
+                {
+                    TasaDeInteres = 0.04m,
+                };
+                cuenta1.Depositar(1000.00m);
+                cuenta1.Retirar(4000m);
 
-            var myClaseAnonima = new { Numero = cuenta.GetNumero(), Tipo = cuenta.GetType().Name, Saldo = cuenta.GetSaldo() };
-            Console.WriteLine(myClaseAnonima);
+                var myClaseAnonima = new { Numero = cuenta1.Numero, Tipo = cuenta1.GetType().Name, Saldo = cuenta1.Saldo };
+                Console.WriteLine(myClaseAnonima);
 
-            /*cuenta = new CajaDeAhorro("2", 10000m, ["Ana", "Rodriguez"]);
-            cuenta.TasaDeInteres = 0.03m;
-            cuenta.Depositar(1500m);
-            cuenta.Retirar(5000m);
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
 
-            var myClaseAnonima1 = new { Numero = cuenta.GetNumero(), Tipo = cuenta.GetType().Name, Saldo = cuenta.GetSaldo() };
-            Console.WriteLine(myClaseAnonima1);*/
+            try
+            {
+                var cuenta2 = new CajaDeAhorro("1235", 5000, new string[] { "Maria", "Perez" })
+                {
+                    TasaDeInteres = 0.04m,
+                };
+                cuenta2.Depositar(-980m);
+                cuenta2.Retirar(4000m);
+
+                var myClaseAnonima1 = new { Numero = cuenta2.Numero, Tipo = cuenta2.GetType().Name, Saldo = cuenta2.Saldo };
+                Console.WriteLine(myClaseAnonima1);
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
         }
     }
 }

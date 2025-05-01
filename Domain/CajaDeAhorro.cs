@@ -25,16 +25,27 @@ class CajaDeAhorro : CuentaBancaria
 
     public override void Depositar(decimal monto)
     {
+        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
+        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
         Saldo += monto;
     }
 
     public override void Retirar(decimal monto)
     {
+        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
+        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
+        if (Saldo < monto)
+        {
+            Estado = Estado.Suspendida;
+            throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
+        }
+        
         Saldo -= monto;
     }
 
     public override void AplicarInteres()
     {
+        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
         Saldo += Saldo * _tasaDeInteres;
     }
 
