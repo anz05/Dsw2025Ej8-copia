@@ -25,17 +25,17 @@ class CajaDeAhorro : CuentaBancaria
 
     public override void Depositar(decimal monto)
     {
-        _saldo += monto;
+        Saldo += monto;
     }
 
     public override void Retirar(decimal monto)
     {
-        _saldo -= monto;
+        Saldo -= monto;
     }
 
     public override void AplicarInteres()
     {
-        _saldo += _saldo * _tasaDeInteres;
+        Saldo += Saldo * _tasaDeInteres;
     }
 
 }

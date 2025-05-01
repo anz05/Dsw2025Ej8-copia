@@ -24,18 +24,18 @@ namespace Dsw2025Ej8.Domain
         public override void Depositar(decimal monto)
         {
             decimal montoFinal = monto - (monto * _comision);
-            _saldo += montoFinal;
+            Saldo += montoFinal;
         }
 
         public override void Retirar(decimal monto)
         {
-            if (_saldo - monto >= -_limiteDeDescubierto)
-            {
-                _saldo -= monto;
+            if (Saldo - monto >= -_limiteDeDescubierto)
+            {   
+                Saldo -= monto;
 
-                if (_saldo < 0)
+                if (Saldo < 0)
                 {
-                    SetEstado(Estado.Suspendida);
+                   Estado= Estado.Suspendida;
                 }
             }
         }
