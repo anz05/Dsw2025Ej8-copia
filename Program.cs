@@ -6,40 +6,80 @@ namespace Dsw2025Ej8
     {
         static void Main(string[] args)
         {
+            CuentaBancaria[] cuentas;
+            
             try
             {
-                var cuenta1 = new CajaDeAhorro("1234", 1000, new string[] { "Ana", "Laura" })
+                var cuenta = new CajaDeAhorro("1234", 1000, new string[] { "Ana", "Laura" })
                 {
                     TasaDeInteres = 0.04m,
                 };
-                cuenta1.Depositar(1000.00m);
-                cuenta1.Retirar(4000m);
+                cuenta.Depositar(1000.00m);
+                cuenta.Retirar(4000m);
+                cuentas[0] = cuenta;
 
-                var myClaseAnonima = new { Numero = cuenta1.Numero, Tipo = cuenta1.GetType().Name, Saldo = cuenta1.Saldo };
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
+
+            try
+            {
+                var cuenta = new CajaDeAhorro("1235", 5000, new string[] { "Maria", "Perez" })
+                {
+                    TasaDeInteres = 0.04m,
+                };
+                cuenta.Depositar(-980m);
+                cuenta.Retirar(4000m);
+                cuentas[1] = cuenta;
+
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
+
+            try
+            {
+                var cuenta = new CuentaCorriente("1236", 10000, new string[] { "Juan", "Lopez" })
+                {
+                    Comision = 5890m,
+                    LimiteDeDescubierto = 2000m,
+                };
+                cuenta.Depositar(-980m);
+                cuenta.Retirar(4000m);
+                cuentas[2] = cuenta;
+
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
+
+            try
+            {
+                var cuenta = new CuentaCorriente("1237", 98333, new string[] { "Pedro", "Araoz" })
+                {
+                    Comision = 5890m,
+                    LimiteDeDescubierto = 2000m,
+                };
+                cuenta.Depositar(-980m);
+                cuenta.Retirar(4000m);
+                cuentas[3] = cuenta;
+
+            }
+            catch (Exception ex)
+            {
+                ControladorExcepciones.Handle(ex);
+            }
+
+            foreach (var cuenta in cuentas)
+            {
+                var myClaseAnonima = new { Numero = cuenta.Numero, Tipo = cuenta.GetType().Name, Saldo = cuenta.Saldo };
                 Console.WriteLine(myClaseAnonima);
-
             }
-            catch (Exception ex)
-            {
-                ControladorExcepciones.Handle(ex);
-            }
-
-            try
-            {
-                var cuenta2 = new CajaDeAhorro("1235", 5000, new string[] { "Maria", "Perez" })
-                {
-                    TasaDeInteres = 0.04m,
-                };
-                cuenta2.Depositar(-980m);
-                cuenta2.Retirar(4000m);
-
-                var myClaseAnonima1 = new { Numero = cuenta2.Numero, Tipo = cuenta2.GetType().Name, Saldo = cuenta2.Saldo };
-                Console.WriteLine(myClaseAnonima1);
-            }
-            catch (Exception ex)
-            {
-                ControladorExcepciones.Handle(ex);
-            }
+            
         }
     }
 }

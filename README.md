@@ -17,9 +17,9 @@
 //7. La tasa de interés se debe indicar al inicializar la instancia de cuenta, pero no mediante el constructor
 //8. El límite de descubierto se debe indicar al inicializar la instancia de cuenta, pero no mediante el constructor
 9. Agregar las siguientes reglas:
-	* El monto recibido por cualquier operación no puede ser menor o igual a 0, de lo contrario generar una excepción del tipo MontoNoValido
-	* Cualquier operación se debe realizar si la cuenta está activa, en cualquier otro caso generar una excepción del tipo CuentaNoActiva
-	* Se debe contar con saldo para realizar un retiro, caso contrario debe generar una excepción SaldoInsuficiente y la cuenta debe quedar suspendida. Tener en cuenta el límite de descubierto si corresponde
+//	* El monto recibido por cualquier operación no puede ser menor o igual a 0, de lo contrario generar una excepción del tipo MontoNoValido
+//	* Cualquier operación se debe realizar si la cuenta está activa, en cualquier otro caso generar una excepción del tipo CuentaNoActiva
+//	* Se debe contar con saldo para realizar un retiro, caso contrario debe generar una excepción SaldoInsuficiente y la cuenta debe quedar suspendida. Tener en cuenta el límite de descubierto si corresponde
 10. Instanciar 4 cuentas (dos de cada tipo) y realizar diferentes operaciones que permitan comprobar todas las funciones posibles.
 11. Recorrer las 4 cuentas creadas y mostrar por consola un resumen de cada una, que incluya número, tipo y saldo (utilizar una clase anónima)
 

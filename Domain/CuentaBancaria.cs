@@ -1,6 +1,8 @@
-﻿namespace Dsw2025Ej8.Domain;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class CuentaBancaria
+namespace Dsw2025Ej8.Domain;
+
+public abstract class CuentaBancaria
 {
     //private TipoCuenta _tipo;
     public string Numero { get; }
@@ -23,24 +25,20 @@ public class CuentaBancaria
     }
 
     #region Getters/Setters
-   
+
     #endregion
-    public virtual void Depositar(decimal monto)
+    public abstract void Depositar(decimal monto);
+
+    protected void ValidarMonto(decimal monto)
     {
         if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
+    }
+
+    protected void ValidarCuenta()
+    {
         if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
     }
 
-    public virtual void Retirar(decimal monto)
-    {
-        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
-        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
-        if (Saldo < monto) throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
+    public abstract void Retirar(decimal monto);
 
-    }
-
-    public virtual void AplicarInteres()
-    {
-
-    }
 }

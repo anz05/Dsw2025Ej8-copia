@@ -8,14 +8,7 @@ namespace Dsw2025Ej8.Domain;
 
 class CajaDeAhorro : CuentaBancaria
 {
-
-    private decimal _tasaDeInteres;
-
-    public decimal TasaDeInteres
-    {
-        get => _tasaDeInteres;
-        set => _tasaDeInteres = value;
-    }
+    public decimal TasaDeInteres {get; init;}
 
     public CajaDeAhorro(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares)
     {
@@ -25,15 +18,15 @@ class CajaDeAhorro : CuentaBancaria
 
     public override void Depositar(decimal monto)
     {
-        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
-        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
+        ValidarCuenta();
+        ValidarMonto(monto);
         Saldo += monto;
     }
 
     public override void Retirar(decimal monto)
     {
-        if (monto <= 0) throw new MontoNoValido("El monto ingresado no es válido para la operación solicitada");
-        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
+        ValidarCuenta();
+        ValidarMonto(monto);
         if (Saldo < monto)
         {
             Estado = Estado.Suspendida;
@@ -43,10 +36,10 @@ class CajaDeAhorro : CuentaBancaria
         Saldo -= monto;
     }
 
-    public override void AplicarInteres()
+    public void AplicarInteres()
     {
-        if (Estado.Activa == 0) throw new CuentaNoActiva($"No se puede operar con la cuenta {Estado}");
-        Saldo += Saldo * _tasaDeInteres;
+        ValidarCuenta();
+        Saldo += Saldo * TasaDeInteres;
     }
 
 }

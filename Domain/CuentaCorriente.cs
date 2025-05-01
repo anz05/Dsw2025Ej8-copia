@@ -8,30 +8,34 @@ namespace Dsw2025Ej8.Domain
 {
     public class CuentaCorriente : CuentaBancaria
     {
-        private decimal _comision;
-        private decimal _limiteDeDescubierto;
 
-        public CuentaCorriente(string numero, decimal saldo, decimal comision, string[] titulares) : base(numero, saldo, titulares)
+        public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares)
         {
-            _comision = comision;
+            
         }
         public decimal LimiteDeDescubierto { get; init; }
+        public decimal Comision { get; init; }
 
         public override void Depositar(decimal monto)
         {
+            ValidarCuenta();
+            ValidarMonto(monto);
             decimal montoFinal = monto - (monto * _comision);
             Saldo += montoFinal;
         }
 
         public override void Retirar(decimal monto)
         {
-            if (Saldo - monto >= -_limiteDeDescubierto)
+            ValidarCuenta();
+            ValidarMonto(monto);
+            if (Saldo - monto >= -LimiteDeDescubierto)
             {   
                 Saldo -= monto;
 
                 if (Saldo < 0)
                 {
                    Estado= Estado.Suspendida;
+                   throw new SaldoInsuficiente("La cuenta no cuenta con saldo suficiente para la operacion. Fue suspendida");
                 }
             }
         }
